@@ -1,6 +1,7 @@
 import express, { Application } from "express"
 import cors from "cors"
-import dotenv from "dotenv"
+import dotenv from "dotenv";
+import morgan from "morgan"
 import routerProduct from "./src/routes/product.routes"
 import routerUser from "./src/routes/user.routes"
 import { Product } from "./src/models/product"
@@ -31,6 +32,7 @@ class App {
     }
 
     midlewares() {
+        this.app.use(morgan('dev'))
         // Parseo body
         this.app.use(express.json());
 

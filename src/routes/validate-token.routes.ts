@@ -9,7 +9,7 @@ const validateToken = (req:Request,res:Response,next:NextFunction)=>{
     try{
         const bearerToken = headerToken!.slice(7)
         jwt.verify(bearerToken, process.env.SECRET_KEY || 'pepito123')
-        res.status(200).json({ message: "token valido" })
+        next()
     }catch(e){
         res.status(400).json({message:"token not valid"})
     }

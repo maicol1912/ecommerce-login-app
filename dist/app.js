@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const dotenv_1 = __importDefault(require("dotenv"));
+const morgan_1 = __importDefault(require("morgan"));
 const product_routes_1 = __importDefault(require("./src/routes/product.routes"));
 const user_routes_1 = __importDefault(require("./src/routes/user.routes"));
 const product_1 = require("./src/models/product");
@@ -39,6 +40,7 @@ class App {
         this.app.use('/api/users', user_routes_1.default);
     }
     midlewares() {
+        this.app.use((0, morgan_1.default)('dev'));
         // Parseo body
         this.app.use(express_1.default.json());
         // Cors

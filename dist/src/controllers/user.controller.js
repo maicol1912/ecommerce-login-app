@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.loginUser = exports.newUser = void 0;
-const bcrypt_1 = __importDefault(require("bcrypt"));
+const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const user_1 = require("../models/user");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const newUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -22,7 +22,7 @@ const newUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         if (yield user_1.User.findOne({ where: { username: username } })) {
             return res.status(400).json("el usuario ya existe");
         }
-        const hashPassword = yield bcrypt_1.default.hash(password, 10);
+        const hashPassword = yield bcryptjs_1.default.hash(password, 10);
         yield user_1.User.create({
             username,
             password: hashPassword
@@ -45,7 +45,7 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             message: "no existe el usuario"
         });
     }
-    if (!(yield bcrypt_1.default.compare(password, user.password))) {
+    if (!(yield bcryptjs_1.default.compare(password, user.password))) {
         return res.status(400).json({
             message: "password no valid"
         });
@@ -53,7 +53,7 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const token = jsonwebtoken_1.default.sign({
         username: username
     }, process.env.SECRET_KEY || 'pepito123', {
-        expiresIn: '1000000'
+        expiresIn: '360000'
     });
     return res.status(200).json({
         token

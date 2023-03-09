@@ -42,6 +42,7 @@ class App {
 
     async dbConnect() {
         try {
+            console.log("database conected")
             await Product.sync()
             await User.sync()
         } catch (error) {

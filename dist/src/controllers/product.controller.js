@@ -13,7 +13,7 @@ exports.getProducts = void 0;
 const product_1 = require("../models/product");
 const getProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const listProducts = yield product_1.Product.findAll();
-    res.json({
+    res.status(200).json({
         message: 'GET PRODUCTS',
         body: listProducts
     });

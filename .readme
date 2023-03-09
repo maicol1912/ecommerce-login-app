@@ -1,0 +1,4 @@
+--comando para correr la imagen de docker por medio del dockerfile
+docker build -t nombreContainer . --este punto para que incluya todo lo que esta en el proyecto
+
+

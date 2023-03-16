@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import morgan from "morgan"
 import routerProduct from "./src/routes/product.routes"
 import routerUser from "./src/routes/user.routes"
+import routerValidation from "./src/routes/validate-token.routes"
 import { Product } from "./src/models/product"
 import { User } from "./src/models/user"
 class App {
@@ -29,6 +30,7 @@ class App {
     routes() {
         this.app.use('/api/products', routerProduct);
         this.app.use('/api/users', routerUser);
+        this.app.use('/api/validate', routerValidation)
     }
 
     midlewares() {

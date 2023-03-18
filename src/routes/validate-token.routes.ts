@@ -24,12 +24,14 @@ router.get('/validate-route',(req:Request,res:Response)=>{
     const headerToken = req.headers['authorization']
 
     if (headerToken == undefined || !headerToken.startsWith('Bearer')) {
+        console.log("undefined")
         res.status(400).json({ message: "token no valido",valid:false})
     }
     try {
         const bearerToken = headerToken!.slice(7)
+        console.log(bearerToken)
         jwt.verify(bearerToken, process.env.SECRET_KEY || 'pepito123')
-        res.status(400).json({ message: "valid token", valid: true })
+        res.status(200).json({ message: "valid token", valid: true })
     } catch (e) {
         res.status(400).json({ message: "token not valid",valid:false })
     }

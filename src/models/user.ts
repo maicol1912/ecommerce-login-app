@@ -1,3 +1,4 @@
+
 import { DataTypes } from "sequelize";
 import sequelize from "../db/connection";
 
@@ -17,5 +18,5 @@ export const User = sequelize.define('user', {
         unique: true,
         allowNull: false
     }
-})
+},{timestamps:false})
 

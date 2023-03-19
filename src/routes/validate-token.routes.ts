@@ -30,6 +30,7 @@ router.get('/validate-route',(req:Request,res:Response)=>{
     try {
         const bearerToken = headerToken!.slice(7)
         console.log(bearerToken)
+        console.log(5+4)
         jwt.verify(bearerToken, process.env.SECRET_KEY || 'pepito123')
         res.status(200).json({ message: "valid token", valid: true })
     } catch (e) {

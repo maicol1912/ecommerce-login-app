@@ -1,8 +1,14 @@
+import { Category } from './../models/category';
 import { Request,Response } from "express"
 import { Product } from "../models/product"
 
 export const getProducts = async(req:Request,res:Response)=>{
-    const listProducts = await Product.findAll();
+    const listProducts = await Product.findAll({
+        include: [{
+            model: Category,
+            attributes: ['name']
+          }]
+      });
     res.status(200).json({
         message:'GET PRODUCTS',
         body:listProducts
@@ -18,13 +24,11 @@ export const deleteProducts = async(req:Request,res:Response)=>{
         console.error(`Error ${e}`)
     })
     res.status(200).json({
-        message: 'DELETE USERS'
+        message: 'DELETE PRODUCTS'
     })
 }
 
 export const deleteProduct = async (req: Request, res: Response) => {
-    const {id} = req.params
-    console.log(id)
     Product.destroy({ where: {id:Number(req.params.id)} })
         .then(() => {
             console.log("users eliminados successfully")
@@ -33,11 +37,12 @@ export const deleteProduct = async (req: Request, res: Response) => {
             console.error(`Error ${e}`)
         })
     res.status(200).json({
-        message: 'DELETE USERS'
+        message: 'DELETE PRODUCT'
     })
 }
 
 export const addProduct = async (req: Request, res: Response) => {
+    
     const {name,description} = req.body
 
     Product.create({
@@ -45,12 +50,17 @@ export const addProduct = async (req: Request, res: Response) => {
         description
     })
     .then((response)=>{
-        console.log("exitoso")
+        res.status(200).json({
+            product:{
+                name,
+                description
+            }
+        })
     })
     .catch((err)=>{
-        console.log(err)
+        res.status(400).json({
+            product:null
+        })
     })
-    res.status(200).json({
-        message: 'ADD PRODUCT'
-    })
+    
 }

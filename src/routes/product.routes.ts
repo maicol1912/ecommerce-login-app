@@ -1,8 +1,7 @@
 import {Router} from "express"
 import { addProduct, deleteProduct, deleteProducts, getProducts } from "../controllers/product.controller";
 import {validateToken} from "./validate-token.routes";
-import { Request,Response } from "express";
-import jwt from "jsonwebtoken"
+
 
 const router = Router();
 

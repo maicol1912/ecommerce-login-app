@@ -11,9 +11,6 @@ export const Product = sequelize.define('product',{
     reference:{
         type:DataTypes.STRING,
         unique:true,
-        validate:{
-            len:[10,15]
-        }
     },
     name:{
         type:DataTypes.STRING

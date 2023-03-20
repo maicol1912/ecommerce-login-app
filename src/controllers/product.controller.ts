@@ -43,21 +43,24 @@ export const deleteProduct = async (req: Request, res: Response) => {
 
 export const addProduct = async (req: Request, res: Response) => {
     
-    const {name,description} = req.body
-
+    const {reference,name,description,value,categoryId} = req.body
+    console.log(reference,name,description,value,categoryId)
     Product.create({
+        reference,
         name,
-        description
+        description,
+        value,
+        categoryId
     })
     .then((response)=>{
+        const value = response.dataValues
         res.status(200).json({
-            product:{
-                name,
-                description
-            }
+            product:value
+            
         })
     })
     .catch((err)=>{
+        console.log(err)
         res.status(400).json({
             product:null
         })
